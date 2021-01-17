@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="atilay_automation" type="atilay_ground_level" name="atilay_ground_level" output="screen">
+  </node>
+</launch>

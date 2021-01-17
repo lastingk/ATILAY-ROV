@@ -1,0 +1,53 @@
+#!/usr/bin/env python
+
+
+import rospy
+import math
+from sensor_msgs.msg import Imu
+from std_msgs.msg import String
+from geometry_msgs.msg import Twist
+
+
+def stream(data):
+  pub=rospy.Publisher('atilay/cmd_vel', Twist, queue_size=10)
+  roll = data.orientation.y
+  twist = Twist()
+  if roll > 0.15 or roll < -0.15:
+    if roll > 0.15:
+      twist.angular.y=-0.2
+    if roll < -0.15:
+      twist.angular.y=0.2
+  if (roll > 0.05 and roll < 0.15) or (roll > -0.15 and roll < -0.05):
+    if roll > 0.05 and roll < 0.15:
+      twist.angular.y=-0.1
+    if roll > -0.15 and roll < -0.05:
+      twist.angular.y=0.1
+  if (roll > 0.03 and roll < 0.05) or (roll > -0.05 and roll < -0.03):
+    if roll > 0.03 and roll < 0.05:
+      twist.angular.y=-0.05
+    if roll > -0.05 and roll < -0.03:
+      twist.angular.y=0.05
+  if (roll > 0.01 and roll < 0.03) or (roll > -0.03 and roll < -0.01):
+    if roll > 0.01 and roll < 0.03:
+      twist.angular.y=-0.02
+    if roll > -0.03 and roll < -0.01:
+      twist.angular.y=0.02
+  if roll > -0.01 and roll < 0.01:
+    twist.angular.y=0
+
+  rospy.loginfo(twist)
+  pub.publish(twist)
+
+
+def streamer():
+  rospy.init_node('streamer', anonymous=True)
+  rospy.Subscriber("atilay/imu", Imu, stream)
+  rate=rospy.Rate(100)
+  while not rospy.is_shutdown():
+    rate.sleep()
+
+if __name__ == '__main__':
+   try:
+    streamer()
+   except rospy.ROSInterruptException:
+    pass

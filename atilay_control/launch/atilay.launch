@@ -1,0 +1,32 @@
+<launch>
+    <!-- If you want to generate a ROS bag with the recorded simulated data, set this flag to true -->
+    <arg name="record" default="false"/>
+
+
+       
+    <include file="$(find uuv_gazebo_worlds)/launch/ocean_waves.launch"/>
+
+    
+    <include file="$(find atilay_description)/launch/upload_atilay.launch">
+        <arg name="x" default="20"/>
+        <arg name="y" default="0"/>
+        <arg name="z" default="-20"/>
+        <arg name="yaw" default="0"/>
+    </include>
+
+		<!--<include file="$(find atilay_control)/launch/start_uuv_controller.launch"/>-->
+    
+    <include file="$(find atilay_control)/launch/start_velocity_control.launch">       
+    </include>
+
+    
+    <include file="$(find uuv_gazebo)/launch/controller_demos/record_atilay.launch">
+      <arg name="record" value="$(arg record)"/>
+    </include>
+
+
+		
+
+
+    
+</launch>
