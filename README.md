@@ -4,12 +4,12 @@
 Project by students of Cukurova university;
 This package was created by team members of ATILAY.
 
-Namely;
- Metin Ünlü
- Mehmet Kadri İş
- Sefa Şeker
- Furkan Kuran
- Mustafa Gülsoy
+Namely
+- Metin Ünlü
+- Mehmet Kadri İş
+- Sefa Şeker
+- Furkan Kuran
+- Mustafa Gülsoy
 
 The package ATILAY can be easily uploaded to a workspace in ROS, or reviewed.
 
